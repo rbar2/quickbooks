@@ -5,6 +5,13 @@
  * @license ISC
  * @copyright 2015 Michael Cohen
  */
+ // Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
+ // provided that the above copyright notice and this permission notice appear in all copies.
+ // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
+ // IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT,
+ // OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+ // NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 
 var request = require('request'),
     uuid    = require('node-uuid'),
@@ -56,7 +63,7 @@ function Quickbooks(consumerKey, consumerSecret, token, tokenSecret, realmId, us
  */
 Quickbooks.prototype.createToken = function(card, callback) {
   module.request(this, 'post', {
-    url: '/payments/tokens',
+    url: '/quickbooks/tokens',
     headers: {
       'Company-Id': this.realmId
     }
@@ -72,7 +79,7 @@ Quickbooks.prototype.createToken = function(card, callback) {
  */
 Quickbooks.prototype.getCharge = function(chargeId, callback) {
   module.request(this, 'get', {
-    url: '/payments/charges/' + chargeId,
+    url: '/quickbooks/charges/' + chargeId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -89,7 +96,7 @@ Quickbooks.prototype.getCharge = function(chargeId, callback) {
  */
 Quickbooks.prototype.charge = function(charge, callback) {
   module.request(this, 'post', {
-    url: '/payments/charges',
+    url: '/quickbooks/charges',
     headers: {
       'Company-Id': this.realmId
     }
@@ -106,7 +113,7 @@ Quickbooks.prototype.charge = function(charge, callback) {
  */
 Quickbooks.prototype.capture = function(chargeId, charge, callback) {
   module.request(this, 'post', {
-    url: '/payments/charges/' + chargeId + '/capture',
+    url: '/quickbooks/charges/' + chargeId + '/capture',
     headers: {
       'Company-Id': this.realmId
     }
@@ -123,7 +130,7 @@ Quickbooks.prototype.capture = function(chargeId, charge, callback) {
  */
 Quickbooks.prototype.getChargeRefund = function(chargeId, refundId, callback) {
   module.request(this, 'get', {
-    url: '/payments/charges/' + chargeId + '/refunds/' + refundId,
+    url: '/quickbooks/charges/' + chargeId + '/refunds/' + refundId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -140,7 +147,7 @@ Quickbooks.prototype.getChargeRefund = function(chargeId, refundId, callback) {
  */
 Quickbooks.prototype.refundCharge = function(chargeId, refund, callback) {
   module.request(this, 'post', {
-    url: '/payments/charges/' + chargeId + '/refunds',
+    url: '/quickbooks/charges/' + chargeId + '/refunds',
     headers: {
       'Company-Id': this.realmId
     }
@@ -156,7 +163,7 @@ Quickbooks.prototype.refundCharge = function(chargeId, refund, callback) {
  */
 Quickbooks.prototype.bankAccounts = function(customerId, callback) {
   module.request(this, 'get', {
-    url: '/payments/customers/' + customerId + '/bank-accounts',
+    url: '/quickbooks/customers/' + customerId + '/bank-accounts',
     headers: {
       'Company-Id': this.realmId
     }
@@ -173,7 +180,7 @@ Quickbooks.prototype.bankAccounts = function(customerId, callback) {
  */
 Quickbooks.prototype.bankAccount = function(customerId, bankAccountId, callback) {
   module.request(this, 'get', {
-    url: '/payments/customers/' + customerId + '/bank-accounts/' + bankAccountId,
+    url: '/quickbooks/customers/' + customerId + '/bank-accounts/' + bankAccountId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -190,7 +197,7 @@ Quickbooks.prototype.bankAccount = function(customerId, bankAccountId, callback)
  */
 Quickbooks.prototype.createBankAccount = function(customerId, bankAccount, callback) {
   module.request(this, 'post', {
-    url: '/payments/customers/' + customerId + '/bank-accounts',
+    url: '/quickbooks/customers/' + customerId + '/bank-accounts',
     headers: {
       'Company-Id': this.realmId
     }
@@ -207,7 +214,7 @@ Quickbooks.prototype.createBankAccount = function(customerId, bankAccount, callb
  */
 Quickbooks.prototype.createBankAccountFromToken = function(customerId, bankAccount, callback) {
   module.request(this, 'post', {
-    url: '/payments/customers/' + customerId + '/bank-accounts/createFromToken',
+    url: '/quickbooks/customers/' + customerId + '/bank-accounts/createFromToken',
     headers: {
       'Company-Id': this.realmId
     }
@@ -224,7 +231,7 @@ Quickbooks.prototype.createBankAccountFromToken = function(customerId, bankAccou
  */
 Quickbooks.prototype.deleteBankAccount = function(customerId, bankAccountId, callback) {
   module.request(this, 'delete', {
-    url: '/payments/customers/' + customerId + '/bank-accounts/' + bankAccountId,
+    url: '/quickbooks/customers/' + customerId + '/bank-accounts/' + bankAccountId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -240,7 +247,7 @@ Quickbooks.prototype.deleteBankAccount = function(customerId, bankAccountId, cal
  */
 Quickbooks.prototype.cards = function(customerId, callback) {
   module.request(this, 'get', {
-    url: '/payments/customers/' + customerId + '/cards',
+    url: '/quickbooks/customers/' + customerId + '/cards',
     headers: {
       'Company-Id': this.realmId
     }
@@ -257,7 +264,7 @@ Quickbooks.prototype.cards = function(customerId, callback) {
  */
 Quickbooks.prototype.bankAccount = function(customerId, cardId, callback) {
   module.request(this, 'get', {
-    url: '/payments/customers/' + customerId + '/cards/' + cardId,
+    url: '/quickbooks/customers/' + customerId + '/cards/' + cardId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -274,7 +281,7 @@ Quickbooks.prototype.bankAccount = function(customerId, cardId, callback) {
  */
 Quickbooks.prototype.createCard = function(customerId, card, callback) {
   module.request(this, 'post', {
-    url: '/payments/customers/' + customerId + '/cards',
+    url: '/quickbooks/customers/' + customerId + '/cards',
     headers: {
       'Company-Id': this.realmId
     }
@@ -291,7 +298,7 @@ Quickbooks.prototype.createCard = function(customerId, card, callback) {
  */
 Quickbooks.prototype.createCardFromToken = function(customerId, card, callback) {
   module.request(this, 'post', {
-    url: '/payments/customers/' + customerId + '/cards/createFromToken',
+    url: '/quickbooks/customers/' + customerId + '/cards/createFromToken',
     headers: {
       'Company-Id': this.realmId
     }
@@ -308,7 +315,7 @@ Quickbooks.prototype.createCardFromToken = function(customerId, card, callback) 
  */
 Quickbooks.prototype.deleteCard = function(customerId, cardId, callback) {
   module.request(this, 'delete', {
-    url: '/payments/customers/' + customerId + '/cards/' + cardId,
+    url: '/quickbooks/customers/' + customerId + '/cards/' + cardId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -324,7 +331,7 @@ Quickbooks.prototype.deleteCard = function(customerId, cardId, callback) {
  */
 Quickbooks.prototype.getEcheck = function(echeckId, callback) {
   module.request(this, 'get', {
-    url: '/payments/echecks/' + echeckId,
+    url: '/quickbooks/echecks/' + echeckId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -340,7 +347,7 @@ Quickbooks.prototype.getEcheck = function(echeckId, callback) {
  */
 Quickbooks.prototype.echeck = function(echeck, callback) {
   module.request(this, 'post', {
-    url: '/payments/echecks',
+    url: '/quickbooks/echecks',
     headers: {
       'Company-Id': this.realmId
     }
@@ -357,7 +364,7 @@ Quickbooks.prototype.echeck = function(echeck, callback) {
  */
 Quickbooks.prototype.getEcheckRefund = function(echeckId, refundId, callback) {
   module.request(this, 'get', {
-    url: '/payments/echecks/' + echeckId + '/refunds/' + refundId,
+    url: '/quickbooks/echecks/' + echeckId + '/refunds/' + refundId,
     headers: {
       'Company-Id': this.realmId
     }
@@ -374,7 +381,7 @@ Quickbooks.prototype.getEcheckRefund = function(echeckId, refundId, callback) {
  */
 Quickbooks.prototype.refundEcheck = function(echeckId, refund, callback) {
   module.request(this, 'post', {
-    url: '/payments/echecks/' + echeckId + '/refunds',
+    url: '/quickbooks/echecks/' + echeckId + '/refunds',
     headers: {
       'Company-Id': this.realmId
     }
